@@ -69,7 +69,6 @@ def QAOA_Cirquit(Graph, p, beta, gamma):
     # Trotter Product of $exp(- \beta B + i \gamma C)$ with p terms
     for k in range(p):
         qc = qc.compose(hamiltonian_trotter_term(Graph, gamma[k]))
-        print(k)
         qc = qc.compose(QAOA_Mixer(Graph, beta[k]))
     # barrier and measurement
     qc.barrier(range(N))
@@ -174,4 +173,4 @@ def QAOA_Test():
     counts = qs.execute(qc, backend).result().get_counts()
     # get the best solution:
     best_cut, best_solution = min([(QAOA_Error(x, Graph), x) for x in counts.keys()], key=itemgetter(0))
-    print(f"Best string: {best_solution} with cut: {-best_cut}")
+    print(f"Best string: {best_solution} with cut: {best_cut}")
