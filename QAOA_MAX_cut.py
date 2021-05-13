@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import scipy
 from collections import defaultdict
 from operator import itemgetter
+from numba import jit
 
 
 def hamiltonian_trotter_term(Graph, gamma):
@@ -114,6 +115,7 @@ def Func_Gen(Graph, p, backend):
     :return:
     '''
 
+    @jit(forceobj=True)
     def f(theta):
         # let's assume first half is betas, second half is gammas
         beta = theta[:p]
